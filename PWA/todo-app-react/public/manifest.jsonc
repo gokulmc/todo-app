@@ -1,0 +1,49 @@
+{
+  // Full app name — shown on the install prompt and app store listings
+  "name": "Todo App (React + Vite)",
+
+  // Shortened name — used on the home screen icon label where space is tight (typically under 12 chars)
+  "short_name": "Todo Vite",
+
+  // Human-readable description — used by app stores and assistive technology
+  "description": "A simple todo app built with React and Vite",
+
+  // The URL the browser opens when the user launches the app from the home screen
+  // "/" means start at the root — equivalent to typing the domain in the address bar
+  "start_url": "/",
+
+  // Controls how the browser chrome is shown when the app is launched
+  // "standalone" hides the address bar and browser UI, making it feel like a native app
+  // Other options: "fullscreen" (hides everything), "minimal-ui" (shows back button only), "browser" (normal tab)
+  "display": "standalone",
+
+  // Background color of the splash screen shown while the app is loading after launch
+  // Should match your app's main background so the transition feels seamless
+  "background_color": "#4a2988",
+
+  // Color of the browser address bar / Android status bar while the app is open
+  // Same as the <meta name="theme-color"> in index.html — they should always match
+  "theme_color": "#4a2988",
+
+  // List of icons the OS can use for the home screen, app switcher, splash screen, etc.
+  // Provide multiple sizes so the OS picks the best fit for each context
+  "icons": [
+    {
+      // Path to the icon file, resolved relative to the manifest's own URL
+      "src": "/icons/icon.svg",
+
+      // "any" tells the browser this SVG scales to any size — use this for vector icons
+      // For PNGs you would list exact sizes like "192x192 512x512"
+      "sizes": "any",
+
+      // MIME type so the browser knows how to decode the file without inspecting it
+      "type": "image/svg+xml",
+
+      // "any"      — general use (home screen, app switcher)
+      // "maskable" — the icon is safe to crop into any shape (circle, squircle, etc.)
+      //              requires the main content to be within the inner 80% "safe zone"
+      // Listing both means one icon serves all purposes
+      "purpose": "any maskable"
+    }
+  ]
+}

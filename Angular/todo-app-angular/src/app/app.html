@@ -1,0 +1,34 @@
+<div class="container">
+  <h1>My Tasks</h1>
+
+  <div class="input-row">
+    <input
+      type="text"
+      placeholder="Add a new task..."
+      [value]="input()"
+      (input)="input.set($any($event.target).value)"
+      (keydown)="onKeyDown($event)"
+    />
+    <button (click)="addTask()">Add</button>
+  </div>
+
+  <app-filters
+    [current]="filter()"
+    (filterChange)="filter.set($event)"
+  />
+
+  <ul id="taskList">
+    @for (task of visible(); track task.id) {
+      <app-task-item
+        [task]="task"
+        (toggle)="toggleTask($event)"
+        (delete)="deleteTask($event)"
+      />
+    }
+  </ul>
+
+  <div class="footer">
+    <span id="itemCount">{{ remaining() }} item{{ remaining() !== 1 ? 's' : '' }} left</span>
+    <button id="clearDoneBtn" (click)="clearDone()">Clear Done</button>
+  </div>
+</div>
