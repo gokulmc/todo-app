@@ -1,0 +1,17 @@
+{
+  "name": "Todo App (React Split)",
+  "short_name": "Todo Split",
+  "description": "A simple todo app built with React CDN, components in separate files",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4a2988",
+  "theme_color": "#4a2988",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

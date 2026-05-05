@@ -1,0 +1,211 @@
+/* Apply to every element: include padding/border inside the declared width, and remove default spacing */
+* {
+  box-sizing: border-box; /* width/height now include padding and border, making layout math predictable */
+  margin: 0;              /* Remove default browser margins from all elements */
+  padding: 0;             /* Remove default browser padding from all elements */
+}
+
+/* Style the page background and center the app card vertically and horizontally */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A clean sans-serif font stack; falls back down the list if one isn't installed */
+  background: linear-gradient(135deg, #4a2988, #764ba2);         /* Diagonal purple-to-violet gradient that fills the whole page */
+  min-height: 100vh;      /* Ensure the body is at least as tall as the viewport so the gradient never cuts short */
+  display: flex;          /* Use flexbox to position the .container card */
+  align-items: center;    /* Center the card vertically */
+  justify-content: center;/* Center the card horizontally */
+}
+
+/* The white card that contains the whole app */
+.container {
+  background: #fff;                          /* Solid white background for the card */
+  border-radius: 16px;                       /* Rounded corners on the card */
+  padding: 32px;                             /* Inner spacing so content doesn't touch the edges */
+  width: 100%;                               /* Stretch to fill available width up to the max */
+  max-width: 480px;                          /* Cap the card width so it doesn't get too wide on large screens */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); /* Large diffuse shadow gives the card a floating appearance */
+}
+
+/* The "My Tasks" heading at the top of the card */
+h1 {
+  font-size: 28px;         /* Large text to make the heading prominent */
+  color: #333;             /* Dark grey instead of pure black for softer contrast */
+  margin-bottom: 24px;     /* Space between the heading and the input row below it */
+  text-align: center;      /* Center the heading horizontally within the card */
+  letter-spacing: 1px;     /* Slight spacing between letters for a cleaner look */
+}
+
+/* Row that holds the text input and Add button side by side */
+.input-row {
+  display: flex;           /* Lay out the input and button in a horizontal row */
+  gap: 8px;                /* Small gap between the input field and the button */
+  margin-bottom: 16px;     /* Space below the input row before the filter buttons */
+}
+
+/* The text input inside the input row */
+.input-row input {
+  flex: 1;                         /* Grow to fill all remaining horizontal space, leaving just enough room for the button */
+  padding: 12px 16px;              /* Comfortable inner spacing so the text doesn't sit against the edges */
+  border: 2px solid #e0e0e0;       /* Light grey border in its normal (unfocused) state */
+  border-radius: 8px;              /* Slightly rounded corners to match the card style */
+  font-size: 15px;                 /* Readable text size */
+  outline: none;                   /* Remove the browser's default blue focus ring (we replace it below) */
+  transition: border-color 0.2s;   /* Smoothly animate the border colour change on focus */
+}
+
+/* The text input when the user has clicked into it (focused state) */
+.input-row input:focus {
+  border-color: #667eea; /* Change the border to the app's purple accent colour to signal focus */
+}
+
+/* The "Add" button next to the text input */
+.input-row button {
+  padding: 12px 20px;          /* Comfortable click target with horizontal breathing room */
+  background: #667eea;         /* Purple accent colour matching the page gradient */
+  color: #fff;                 /* White label text for contrast against the purple background */
+  border: none;                /* Remove the default button border */
+  border-radius: 8px;          /* Rounded corners to match the input field */
+  font-size: 15px;             /* Same font size as the input for visual consistency */
+  cursor: pointer;             /* Show a hand cursor to indicate this is clickable */
+  transition: background 0.2s; /* Smoothly animate the background colour change on hover */
+}
+
+/* The "Add" button when the mouse hovers over it */
+.input-row button:hover {
+  background: #5a6fd6; /* Slightly darker purple to give visual feedback that the button is hovered */
+}
+
+/* The row of All / Active / Done filter buttons */
+.filters {
+  display: flex;        /* Lay the three buttons out in a horizontal row */
+  gap: 8px;             /* Small equal gap between each filter button */
+  margin-bottom: 20px;  /* Space below the filter row before the task list */
+}
+
+/* Each individual filter button (default / inactive state) */
+.filter-btn {
+  flex: 1;                       /* Each button takes an equal share of the row width */
+  padding: 8px;                  /* Inner spacing for a comfortable click target */
+  border: 2px solid #e0e0e0;    /* Light grey border in the inactive state */
+  background: transparent;       /* No background fill when the button is not selected */
+  border-radius: 6px;            /* Slightly rounded corners */
+  font-size: 13px;               /* Slightly smaller text than the main input */
+  cursor: pointer;               /* Hand cursor to indicate clickability */
+  color: #666;                   /* Medium grey label colour when inactive */
+  transition: all 0.2s;          /* Smoothly animate all style changes (border, colour, background) */
+}
+
+/* A filter button that is currently selected (.active) or being hovered */
+.filter-btn.active,
+.filter-btn:hover {
+  border-color: #667eea; /* Purple border to highlight the selected/hovered state */
+  color: #667eea;         /* Purple label text to match the border */
+  background: #f0f2ff;    /* Very light purple background tint for extra emphasis */
+}
+
+/* The task list <ul> itself */
+#taskList {
+  list-style: none;    /* Remove the default bullet points */
+  min-height: 40px;    /* Reserve a small minimum height so the footer doesn't jump up when the list is empty */
+  max-height: 320px;   /* Cap the height so a very long list doesn't overflow the card */
+  overflow-y: auto;    /* Show a scrollbar when the list content exceeds the max height */
+}
+
+/* Each individual task row */
+.task-item {
+  display: flex;                         /* Lay the checkbox, text, and delete button in a row */
+  align-items: center;                   /* Vertically centre all three elements */
+  gap: 12px;                             /* Space between the checkbox, text, and delete button */
+  padding: 12px 8px;                     /* Vertical breathing room for each row */
+  border-bottom: 1px solid #f0f0f0;     /* Thin separator line between tasks */
+  animation: slideIn 0.2s ease;          /* Play the slide-in animation when the item is added to the DOM */
+}
+
+/* Animation that makes new tasks slide down gently when they appear */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); } /* Start invisible and slightly above its final position */
+  to   { opacity: 1; transform: translateY(0); }    /* End fully visible at its natural position */
+}
+
+/* Remove the separator line from the very last task to avoid a double-border with the footer */
+.task-item:last-child {
+  border-bottom: none;
+}
+
+/* The checkbox inside each task row */
+.task-item input[type="checkbox"] {
+  width: 18px;              /* Fixed size so all checkboxes are the same regardless of browser defaults */
+  height: 18px;             /* Same as width to keep the checkbox square */
+  accent-color: #667eea;    /* Colour the checkbox tick and fill with the app's purple accent (modern browsers) */
+  cursor: pointer;          /* Hand cursor to indicate the checkbox is interactive */
+  flex-shrink: 0;           /* Prevent flexbox from squishing the checkbox when text is long */
+}
+
+/* The task label text */
+.task-item .task-text {
+  flex: 1;               /* Take up all remaining space between the checkbox and the delete button */
+  font-size: 15px;       /* Match the input font size for consistency */
+  color: #333;           /* Dark grey text */
+  word-break: break-word;/* Wrap very long words instead of overflowing the container */
+}
+
+/* The task label text when the task is marked done */
+.task-item.done .task-text {
+  text-decoration: line-through; /* Strike through the text to visually signal completion */
+  color: #aaa;                   /* Fade the text to light grey so done tasks feel de-emphasised */
+}
+
+/* The ✕ delete button on each task row */
+.task-item .delete-btn {
+  background: none;    /* No background fill so it blends into the row */
+  border: none;        /* No border */
+  color: #ccc;         /* Light grey colour so it is visible but not distracting */
+  font-size: 18px;     /* Large enough to be an easy click target */
+  cursor: pointer;     /* Hand cursor */
+  padding: 0 4px;      /* Small horizontal padding to widen the click area slightly */
+  line-height: 1;      /* Prevent extra vertical space added by the default line height */
+  transition: color 0.2s; /* Smoothly animate the colour change on hover */
+}
+
+/* The delete button when hovered */
+.task-item .delete-btn:hover {
+  color: #e53935; /* Turn red on hover to warn the user they are about to delete */
+}
+
+/* The footer bar at the bottom of the card */
+.footer {
+  display: flex;               /* Lay the item count and Clear Done button in a row */
+  justify-content: space-between; /* Push the count to the left and the button to the right */
+  align-items: center;         /* Vertically centre both items */
+  margin-top: 20px;            /* Space above the footer */
+  padding-top: 16px;           /* Inner spacing above the border line */
+  border-top: 1px solid #f0f0f0; /* Thin line separating the footer from the task list */
+}
+
+/* The "X items left" counter text */
+#itemCount {
+  font-size: 13px; /* Smaller text so it doesn't compete with the task content */
+  color: #999;     /* Light grey to keep it unobtrusive */
+}
+
+/* The "Clear Done" button in the footer */
+#clearDoneBtn {
+  background: none;    /* No background fill */
+  border: none;        /* No border */
+  color: #999;         /* Light grey matching the item count */
+  font-size: 13px;     /* Same small size as the item count */
+  cursor: pointer;     /* Hand cursor */
+  transition: color 0.2s; /* Smoothly animate colour change on hover */
+}
+
+/* The "Clear Done" button when hovered */
+#clearDoneBtn:hover {
+  color: #e53935; /* Turn red on hover to signal this is a destructive action */
+}
+
+/* Message shown when the task list is empty (injected by app.js) */
+.empty-msg {
+  text-align: center; /* Centre the message horizontally */
+  color: #bbb;        /* Very light grey so it reads as a placeholder, not real content */
+  font-size: 14px;    /* Slightly smaller than body text */
+  padding: 24px 0;    /* Generous vertical padding so the message doesn't feel cramped */
+}

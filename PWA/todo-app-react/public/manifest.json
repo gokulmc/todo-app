@@ -1,0 +1,17 @@
+{
+  "name": "Todo App (React + Vite)",
+  "short_name": "Todo Vite",
+  "description": "A simple todo app built with React and Vite",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4a2988",
+  "theme_color": "#4a2988",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

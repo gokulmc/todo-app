@@ -1,0 +1,17 @@
+{
+  "name": "Todo App (React CDN)",
+  "short_name": "Todo CDN",
+  "description": "A simple todo app built with React via CDN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4a2988",
+  "theme_color": "#4a2988",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

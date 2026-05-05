@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174)",
+      "Bash(npx create-next-app@latest todo-app-nextjs --js --no-tailwind --eslint --app --no-src-dir --no-turbopack --import-alias \"@/*\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001)",
+      "Bash(mkdir -p /Users/gokulmc/Desktop/todo-app/PWA)",
+      "Bash(rsync -a --exclude 'node_modules' --exclude '.next' /Users/gokulmc/Desktop/todo-app/todo-app-nextjs/ /Users/gokulmc/Desktop/todo-app/PWA/todo-app-nextjs/)",
+      "Bash(rsync -a --exclude 'node_modules' --exclude 'dist' /Users/gokulmc/Desktop/todo-app/todo-app-react/ /Users/gokulmc/Desktop/todo-app/PWA/todo-app-react/)",
+      "Bash(rsync -a /Users/gokulmc/Desktop/todo-app/todo-app-react-cdn/ /Users/gokulmc/Desktop/todo-app/PWA/todo-app-react-cdn/)",
+      "Bash(rsync -a /Users/gokulmc/Desktop/todo-app/todo-app-react-split/ /Users/gokulmc/Desktop/todo-app/PWA/todo-app-react-split/)",
+      "Bash(gh auth *)",
+      "Bash(git -C /Users/gokulmc/Desktop/todo-app status)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

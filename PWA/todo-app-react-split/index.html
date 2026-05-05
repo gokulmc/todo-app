@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo App (React Split)</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4a2988" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- React and ReactDOM from CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel: transforms JSX in all script tags with type="text/babel" -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Load each component file — order matters: children before parents -->
+  <!-- Babel transforms each file's JSX and makes the function available as a global -->
+  <script type="text/babel" src="./components/TaskItem.js"></script>
+  <script type="text/babel" src="./components/Filters.js"></script>
+  <script type="text/babel" src="./App.js"></script>
+</head>
+<body>
+
+  <!-- React mounts the entire app into this single div -->
+  <div id="root"></div>
+
+  <!-- Entry point: runs last, after all component files are loaded -->
+  <script type="text/babel">
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.error('SW registration failed:', err));
+      });
+    }
+  </script>
+
+</body>
+</html>

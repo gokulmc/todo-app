@@ -1,0 +1,95 @@
+/* Custom overrides on top of Bootstrap — only what Bootstrap can't do on its own */
+
+/* Page background: Bootstrap doesn't provide gradient backgrounds, so we add it here */
+body {
+  background: linear-gradient(135deg, #4a2988, #764ba2);
+  min-height: 100vh;
+}
+
+/* Push the card down slightly from the top on small screens */
+.todo-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+/* Limit card width and add a stronger shadow than Bootstrap's default */
+.todo-card {
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Purple accent colour used on inputs, buttons, and filter highlights */
+:root {
+  --accent: #667eea;
+  --accent-dark: #5a6fd6;
+  --accent-light: #f0f2ff;
+}
+
+/* Input focus ring in the app's purple instead of Bootstrap's default blue */
+#taskInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* "Add" button — purple fill matching the gradient */
+#addBtn {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+#addBtn:hover {
+  background-color: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+/* Filter buttons — purple highlight when active or hovered */
+.filter-btn.active,
+.filter-btn:hover {
+  background-color: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Task list: cap height and scroll when it overflows */
+#taskList {
+  max-height: 320px;
+  overflow-y: auto;
+  min-height: 40px;
+}
+
+/* Slide-in animation for newly added task rows */
+#taskList .list-group-item {
+  animation: slideIn 0.2s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Strike through and grey out text for completed tasks */
+#taskList .list-group-item.done .task-text {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+/* Checkbox tinted purple */
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+/* Delete button: hidden by default, turns red on hover */
+.delete-btn {
+  color: #ccc;
+  transition: color 0.2s;
+}
+.delete-btn:hover {
+  color: #e53935;
+}
+
+/* "Clear Done" button turns red on hover to signal it's destructive */
+#clearDoneBtn:hover {
+  color: #e53935 !important;
+}
